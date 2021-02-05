@@ -19,23 +19,22 @@ public class RPCClient {
 	
 	public void connect() {
 		
-		// TODO: connect using the underlying messaging layer connection
-		
-	    throw new UnsupportedOperationException(TODO.method());
-			
+		connection = msgclient.connect();
 	}
 	
 	public void disconnect() {
 		
-		// TODO: disconnect/close the underlying messaging connection
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
+		connection.close();
 	}
 	
 	public byte[] call(byte[] rpcrequest) {
 		
-		byte[] rpcreply;
+		Message sendMsg = new Message(rpcrequest);
+		connection.send(sendMsg);
+		
+		Message receiveMsg = connection.receive();
+		
+		byte[] rpcreply = receiveMsg.getData();
 		
 		/* TODO: 
 		
@@ -46,11 +45,7 @@ public class RPCClient {
 		rpctreply is the rpcreply to be unmarshalled by the client-stub
 		
 		*/
-		
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
-		}
-		
+	
 		return rpcreply;
 		
 	}

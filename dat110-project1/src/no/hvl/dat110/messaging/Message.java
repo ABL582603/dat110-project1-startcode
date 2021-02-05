@@ -22,26 +22,25 @@ public class Message {
 
 	public byte[] encapsulate() {
 		
-		byte[] encoded = null;
+		byte[] encoded = new byte[128];
 		
-		// TODO
-		// encapulate/encode the payload of this message in the
-		// encoded byte array according to message format
+		Integer payloadLength = payload.length;
+		encoded[0] = payloadLength.byteValue();
 		
-		if (true)
-		   throw new UnsupportedOperationException(TODO.method());
-
+		for (int i = 0; i<payload.length; i++) {
+			encoded[i+1] = payload[i];
+		}
 		return encoded;
-		
 	}
 
 	public void decapsulate(byte[] received) {
 
-		// TODO
-		// decapsulate the data contained in the received byte array and store it 
-		// in the payload of this message
+		Byte b = received[0];
+		int payloadLength = b.intValue();
+		payload = new byte[payloadLength];
 		
-		throw new UnsupportedOperationException(TODO.method());
-		
+		for (int i = 0; i<payloadLength; i++) {
+			payload[i] = received[i+1];
+		}
 	}
 }
